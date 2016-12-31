@@ -208,11 +208,11 @@
                         <property name="sensitive">False</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
-                        <property name="tooltip_text" translatable="yes">Ctrl+Enter
-Ctrl+e</property>
+                        <property name="tooltip_text" translatable="yes">Meta+Enter
+Meta+e</property>
                         <property name="use_underline">True</property>
-                        <accelerator key="e" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
-                        <accelerator key="Return" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
+                        <accelerator key="e" signal="clicked" modifiers="GDK_META_MASK"/>
+                        <accelerator key="Return" signal="clicked" modifiers="GDK_META_MASK"/>
                         <signal name="clicked" handler="_exec_method" swapped="no"/>
                       </object>
                       <packing>
@@ -244,9 +244,9 @@ Ctrl+e</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
-                        <property name="tooltip_text" translatable="yes">Ctrl+a</property>
+                        <property name="tooltip_text" translatable="yes">Meta+a</property>
                         <property name="use_underline">True</property>
-                        <accelerator key="a" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
+                        <accelerator key="a" signal="clicked" modifiers="GDK_META_MASK"/>
                         <signal name="toggled" handler="on_advanced_toggled" swapped="no"/>
                       </object>
                       <packing>
@@ -288,9 +288,9 @@ Ctrl+e</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="tooltip_text" translatable="yes">Ctrl+o</property>
+                <property name="tooltip_text" translatable="yes">Meta+o</property>
                 <property name="use_underline">True</property>
-                <accelerator key="o" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
+                <accelerator key="o" signal="clicked" modifiers="GDK_META_MASK"/>
                 <signal name="clicked" handler="_choose_file" swapped="no"/>
               </object>
               <packing>
@@ -308,9 +308,9 @@ Ctrl+e</property>
                 <property name="sensitive">False</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="tooltip_text" translatable="yes">Ctrl+s</property>
+                <property name="tooltip_text" translatable="yes">Meta+s</property>
                 <property name="use_underline">True</property>
-                <accelerator key="s" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
+                <accelerator key="s" signal="clicked" modifiers="GDK_META_MASK"/>
                 <signal name="clicked" handler="_save_file" swapped="no"/>
               </object>
               <packing>
@@ -328,9 +328,9 @@ Ctrl+e</property>
                 <property name="sensitive">False</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="tooltip_text" translatable="yes">Ctrl+r</property>
+                <property name="tooltip_text" translatable="yes">Meta+r</property>
                 <property name="use_underline">True</property>
-                <accelerator key="r" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
+                <accelerator key="r" signal="clicked" modifiers="GDK_META_MASK"/>
                 <signal name="clicked" handler="_reset_image" swapped="no"/>
               </object>
               <packing>
@@ -348,7 +348,8 @@ Ctrl+e</property>
                 <property name="sensitive">False</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <accelerator key="equal" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
+                <property name="tooltip_text" translatable="yes">Meta+=</property>
+                <accelerator key="equal" signal="clicked" modifiers="GDK_META_MASK"/>
                 <signal name="clicked" handler="on_button_zoom_in_clicked" swapped="no"/>
               </object>
               <packing>
@@ -366,7 +367,8 @@ Ctrl+e</property>
                 <property name="sensitive">False</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <accelerator key="minus" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
+                <property name="tooltip_text" translatable="yes">Meta+-</property>
+                <accelerator key="minus" signal="clicked" modifiers="GDK_META_MASK"/>
                 <signal name="clicked" handler="on_button_zoom_out_clicked" swapped="no"/>
               </object>
               <packing>
@@ -384,7 +386,8 @@ Ctrl+e</property>
                 <property name="sensitive">False</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <accelerator key="0" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
+                <property name="tooltip_text" translatable="yes">Meta+0</property>
+                <accelerator key="0" signal="clicked" modifiers="GDK_META_MASK"/>
                 <signal name="clicked" handler="on_button_zoom_actual_clicked" swapped="no"/>
               </object>
               <packing>

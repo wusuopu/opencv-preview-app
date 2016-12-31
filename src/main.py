@@ -121,7 +121,7 @@ class Window(object):
             )
             try:
                 exec(script, global_ctx, local_ctx)
-                self._show_image(im)
+                self._show_image(local_ctx['im'])
             except Exception as e:
                 self.text_output.set_text(self.collect_exception(e))
             return
@@ -143,7 +143,9 @@ class Window(object):
         func = cv2.__getattribute__(method)
         try:
             args = eval('[%s]' % (parameters), global_ctx, local_ctx)
-            new_im = func(im, *args) or im
+            new_im = func(im, *args)
+            if new_im is None:
+                new_im = im
             if override and new_im is not None:
                 self.__im = new_im
             self._show_image(new_im)
