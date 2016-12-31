@@ -13,6 +13,7 @@ import StringIO
 import traceback
 import sys
 import os
+import time
 import numpy as np
 
 BASE_DIR = os.path.dirname(os.path.relpath(__file__))
@@ -57,6 +58,7 @@ class Window(object):
                 self.__im_scale = 1
                 self._show_image()
                 self._enable_buttons()
+                self.update_status_bar("")
         dialog.destroy()
 
     def _save_file(self, *args):
@@ -149,7 +151,9 @@ class Window(object):
             self.text_output.set_text(self.collect_exception(e))
 
     def on_image_button_release_event(self, widget, event):
-        print(event.type, event.x, event.y)
+        x = event.x / self.__im_scale
+        y = event.y / self.__im_scale
+        self.update_status_bar("Clicked Point: (%s, %s)" % (x, y))
 
     def on_advanced_toggled(self, widget):
         container1 = self.__build.get_object("vbox_script")
@@ -168,6 +172,7 @@ class Window(object):
         if self.__im_scale != 1:
             self.__im_scale = 1
             self._show_image()
+        self.update_status_bar("")
 
     def on_button_zoom_in_clicked(self, *args):
         if self.__im_scale >= 3:
@@ -175,6 +180,7 @@ class Window(object):
 
         self.__im_scale += 0.05
         self._show_image()
+        self.update_status_bar("")
 
     def on_button_zoom_out_clicked(self, *args):
         scale = self.__im_scale - 0.05
@@ -187,6 +193,13 @@ class Window(object):
 
         self.__im_scale = scale
         self._show_image()
+        self.update_status_bar("")
+
+    def update_status_bar(self, text):
+        self.__build.get_object("statusbar1").push(
+            int(time.time()),
+            "Zoom: %s%% %s" % (self.__im_scale * 100, text)
+        )
 
     def _show_image(self, img=None, scale=None):
         """
