@@ -27,9 +27,11 @@ class Window(object):
 
         self.__orgin_im = None
         self.__im = None
+        self.__im_scale = 1
 
         self.window = self.__build.get_object("window")
         self.image = self.__build.get_object("image_main")
+        self.box = self.__build.get_object("eventbox1")
 
         self.text_method = self.__build.get_object("entry_method")
         self.text_script = self.__build.get_object("textview_script").get_buffer()
@@ -52,7 +54,9 @@ class Window(object):
             if im is not None:
                 self.__im = im
                 self.__orgin_im = np.copy(im)
+                self.__im_scale = 1
                 self._show_image()
+                self._enable_buttons()
         dialog.destroy()
 
     def _save_file(self, *args):
@@ -145,8 +149,7 @@ class Window(object):
             self.text_output.set_text(self.collect_exception(e))
 
     def on_image_button_release_event(self, widget, event):
-        print "on_image_button_release_event"
-        print event.type, event.x, event.y
+        print(event.type, event.x, event.y)
 
     def on_advanced_toggled(self, widget):
         container1 = self.__build.get_object("vbox_script")
@@ -161,15 +164,43 @@ class Window(object):
     def main_quit(self, *args):
         gtk.main_quit()
 
-    def _show_image(self, img=None):
+    def on_button_zoom_actual_clicked(self, *args):
+        if self.__im_scale != 1:
+            self.__im_scale = 1
+            self._show_image()
+
+    def on_button_zoom_in_clicked(self, *args):
+        if self.__im_scale >= 3:
+            return
+
+        self.__im_scale += 0.05
+        self._show_image()
+
+    def on_button_zoom_out_clicked(self, *args):
+        scale = self.__im_scale - 0.05
+        if scale <= 0:
+            return
+
+        w, h = self.parse_image_size(self.__im)
+        if (w*scale) < 10 or (h*scale) < 50:
+            return
+
+        self.__im_scale = scale
+        self._show_image()
+
+    def _show_image(self, img=None, scale=None):
         """
         Refresh Image
         """
         if img is None:
             img = self.__im
-
         if img is None:
             return
+
+        if scale is None:
+            scale = self.__im_scale
+        if scale != 1:
+            img = cv2.resize(img, (0, 0), fx=scale, fy=scale)
 
         ret, im = cv2.imencode('.ppm', img)
         if not ret:
@@ -182,7 +213,18 @@ class Window(object):
         loader.close()
 
         self.image.set_from_pixbuf(pixbuf)
-        self.image.set_size_request(640, 480)
+        w, h = self.parse_image_size(img)
+        self.box.set_size_request(w, h)
+        self.image.set_size_request(w, h)
+
+    def _enable_buttons(self):
+        self.__build.get_object("button_save").set_sensitive(True)
+        self.__build.get_object("button_reset").set_sensitive(True)
+        self.__build.get_object("button_zoom_in").set_sensitive(True)
+        self.__build.get_object("button_zoom_out").set_sensitive(True)
+        self.__build.get_object("button_zoom_actual").set_sensitive(True)
+        self.__build.get_object("button_exec").set_sensitive(True)
+        self.__build.get_object("button_apply").set_sensitive(True)
 
     def start(self):
         self.window.show_all()
@@ -196,6 +238,16 @@ class Window(object):
         if isinstance(contents, unicode):
             contents = contents.encode('utf8')
         return contents
+
+    def parse_image_size(self, img):
+        if len(img.shape) > 2:
+            # shape: (rows|height, cols|width, color)
+            _, w, h = img.shape[::-1]
+        else:
+            # shape: (rows|height, cols|width)
+            w, h = img.shape[::-1]
+
+        return (w, h)
 
 
 if __name__ == '__main__':

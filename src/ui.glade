@@ -3,8 +3,8 @@
   <requires lib="gtk+" version="2.24"/>
   <!-- interface-naming-policy project-wide -->
   <object class="GtkWindow" id="window">
-    <property name="width_request">1000</property>
-    <property name="height_request">700</property>
+    <property name="width_request">1200</property>
+    <property name="height_request">760</property>
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">OpenCV Preview App</property>
     <property name="window_position">center</property>
@@ -19,11 +19,9 @@
             <property name="can_focus">True</property>
             <child>
               <object class="GtkScrolledWindow" id="scrolledwindow1">
-                <property name="width_request">800</property>
+                <property name="width_request">850</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="hscrollbar_policy">automatic</property>
-                <property name="vscrollbar_policy">automatic</property>
                 <child>
                   <object class="GtkViewport" id="viewport1">
                     <property name="visible">True</property>
@@ -52,6 +50,7 @@
             </child>
             <child>
               <object class="GtkVBox" id="vbox2">
+                <property name="width_request">350</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <child>
@@ -201,8 +200,13 @@
                         <property name="label" translatable="yes">Exec	</property>
                         <property name="use_action_appearance">False</property>
                         <property name="visible">True</property>
+                        <property name="sensitive">False</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
+                        <property name="tooltip_text" translatable="yes">Ctrl+Enter
+Ctrl+a</property>
+                        <accelerator key="Return" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
+                        <accelerator key="e" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
                         <signal name="clicked" handler="_exec_method" swapped="no"/>
                       </object>
                       <packing>
@@ -216,6 +220,7 @@
                         <property name="label" translatable="yes">Apply</property>
                         <property name="use_action_appearance">False</property>
                         <property name="visible">True</property>
+                        <property name="sensitive">False</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
                         <signal name="clicked" handler="_exec_and_apply_method" swapped="no"/>
@@ -233,6 +238,8 @@
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
+                        <property name="tooltip_text" translatable="yes">Ctrl+a</property>
+                        <accelerator key="a" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
                         <signal name="toggled" handler="on_advanced_toggled" swapped="no"/>
                       </object>
                       <packing>
@@ -274,7 +281,9 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <property name="tooltip_text" translatable="yes">Ctrl+o</property>
                 <property name="use_underline">True</property>
+                <accelerator key="o" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
                 <signal name="clicked" handler="_choose_file" swapped="no"/>
               </object>
               <packing>
@@ -289,9 +298,12 @@
                 <property name="use_action_appearance">False</property>
                 <property name="width_request">100</property>
                 <property name="visible">True</property>
+                <property name="sensitive">False</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <property name="tooltip_text" translatable="yes">Ctrl+s</property>
                 <property name="use_underline">True</property>
+                <accelerator key="s" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
                 <signal name="clicked" handler="_save_file" swapped="no"/>
               </object>
               <packing>
@@ -306,8 +318,11 @@
                 <property name="use_action_appearance">False</property>
                 <property name="width_request">100</property>
                 <property name="visible">True</property>
+                <property name="sensitive">False</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <property name="tooltip_text" translatable="yes">Ctrl+r</property>
+                <accelerator key="r" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
                 <signal name="clicked" handler="_reset_image" swapped="no"/>
               </object>
               <packing>
@@ -325,6 +340,8 @@
                 <property name="sensitive">False</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <accelerator key="equal" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
+                <signal name="clicked" handler="on_button_zoom_in_clicked" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -341,6 +358,8 @@
                 <property name="sensitive">False</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <accelerator key="minus" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
+                <signal name="clicked" handler="on_button_zoom_out_clicked" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -357,6 +376,8 @@
                 <property name="sensitive">False</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <accelerator key="0" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
+                <signal name="clicked" handler="on_button_zoom_actual_clicked" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>
