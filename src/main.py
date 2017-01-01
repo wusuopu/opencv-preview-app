@@ -121,7 +121,10 @@ class Window(object):
             )
             try:
                 exec(script, global_ctx, local_ctx)
-                self._show_image(local_ctx['im'])
+                im = local_ctx['im']
+                if override and isinstance(im, np.ndarray):
+                    self.__im = im
+                self._show_image(im)
             except Exception as e:
                 self.text_output.set_text(self.collect_exception(e))
             return
